@@ -1,0 +1,25 @@
+# IntelliJ IDEA / Android Studio
+.idea/
+*.iml
+*.iws
+local.properties
+
+# Android / Gradle
+build/
+.gradle/
+captures/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+flutter_*.png
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
