@@ -1,3 +1,16 @@
+/*
+Mission To join the YouTube Partner Program and earn money,
+ you should have 1000 subscribers at least,
+  and 4000 public watch hours in the last 12 months.
+   Write a program that prints whether 
+   a YouTuber can join the program and earn money or not using the following variables:
+    • subscriberNumber 
+    • hoursWatched 
+    • videoType (Ex: Public – Private – Unlisted – Members only) 
+    • monthsPassed
+
+*/
+
 fun main() {
     print("No. of Subscribers: ")
     val subscriberNumber = readln().toInt()
@@ -18,19 +31,3 @@ fun main() {
         println("You cannot join the YouTube Partner Program.")
     }
 }
-
-//
-//fun main() {
-//
-//    val gameTitle = "Monument Valley"
-//    val developerName = "ustwo games"
-//    val rating = 4.8
-//    val reviewsCount = 265000
-//    val downloads = "5M+"
-//    val releasePlatforms = arrayOf("Android", "Windows")
-//    val lastUpdated = "2 Mar 2026"
-//    val contentRating = "Rated for 3+"
-//    val supportsCloudSave = true
-//    val hasInAppPurchases = true
-//
-//}
