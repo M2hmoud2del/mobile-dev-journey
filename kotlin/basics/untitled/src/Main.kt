@@ -1,23 +1,66 @@
-fun main() {
-    print("No. of Subscribers: ")
-    val subscriberNumber = readln().toInt()
-    print("No. of hours watched ur videos: ")
-    val hoursWatched = readln().toInt()
-    print("Video Type (Ex: Public - Private - Unlisted - Members only): ")
-    val videoType = readln().lowercase()
-    print("Months Passed: ")
-    val monthsPassed = readln().toInt()
-    val canJoinProgram = subscriberNumber >= 1000 &&
-            hoursWatched >= 4000 &&
-            videoType == "public" &&
-            monthsPassed <= 12 &&
-            monthsPassed >= 0
-    if (canJoinProgram) {
-        println("You can join the YouTube Partner Program.")
-    } else {
-        println("You cannot join the YouTube Partner Program.")
-    }
+fun main(){
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//fun main(){
+//    val userInput = '#'
+//    if(userInput in 'a'..'z' || userInput in 'A'..'Z')println("Letter is Found!")
+//    else if (userInput in '0'..'9')println("Number is Found!")
+//    else println("Special character is found")
+//    when(userInput){
+//         in 'a'..'z',in 'A'..'Z' -> println("Letter is Found!")
+//         in '0'..'9' -> println("Number is Found!")
+//        else -> println("Special character is found")
+//    }
+//
+//}
+
+
+
+
+
+//fun main(){
+//    val grade = 930
+//
+//    when(grade){
+//        in 90..100 -> {
+//            println("Congrats!")
+//            println("A+")
+//        }
+//        !in 90..100 -> println("NOT IN RANGE")
+//        else -> println("D")
+//    }
+//
+//}
+
+
+
+
+
+
+//import java.time.LocalDateTime
+//
+//fun main() {
+//   val time = LocalDateTime.now().hour
+//    println(true)
+//
+//    if( time >= 8 && time <= 16)println("Coding Time!");
+//    else if(time == 7 || time == 17 || time == 22)println("Eatin Time!")
+//    else println("Sleeping Time!")
+//}
 
 //
 //fun main() {
