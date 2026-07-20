@@ -1,6 +1,8 @@
-fun main(){
-
+fun main() {
+    println(isAExists("Hello"))
+    println(isAExists("Candroid"))
 }
+fun isAExists(str: String) = "a" in str
 
 
 
