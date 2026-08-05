@@ -1,0 +1,6 @@
+Background: #B3A3D6
+Text Color: #FFF9F9
+Text Color Link: #8D14FF
+Shadow Color: #40000000
+Shadow Radius: 4
+Shadow Y Dimension: 7
