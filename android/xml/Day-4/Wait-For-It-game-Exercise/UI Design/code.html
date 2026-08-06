@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wait For It! - Gameplay</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter & Geist -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#66f796",
+                        "outline": "#859397",
+                        "on-secondary-container": "#d6a9ff",
+                        "primary-fixed": "#a2eeff",
+                        "on-background": "#dae2fd",
+                        "on-tertiary-fixed-variant": "#005227",
+                        "surface-tint": "#2fd9f4",
+                        "on-tertiary-container": "#005b2c",
+                        "surface-container-highest": "#2d3449",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-surface-variant": "#bbc9cd",
+                        "on-tertiary": "#003919",
+                        "outline-variant": "#3c494c",
+                        "on-primary-fixed": "#001f25",
+                        "on-secondary": "#490080",
+                        "surface-container-high": "#222a3d",
+                        "surface-bright": "#31394d",
+                        "on-primary-container": "#005763",
+                        "on-surface": "#dae2fd",
+                        "inverse-primary": "#006877",
+                        "surface-container-lowest": "#060e20",
+                        "on-tertiary-fixed": "#00210c",
+                        "primary-container": "#22d3ee",
+                        "primary": "#8aebff",
+                        "inverse-on-surface": "#283044",
+                        "tertiary-fixed-dim": "#4de082",
+                        "on-primary": "#00363e",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#dae2fd",
+                        "secondary-container": "#6f00be",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "surface-container-low": "#131b2e",
+                        "on-secondary-fixed": "#2c0051",
+                        "secondary-fixed": "#f0dbff",
+                        "tertiary-fixed": "#6dfe9c",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "background": "#0b1326",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "surface-dim": "#0b1326",
+                        "surface": "#0b1326",
+                        "surface-variant": "#2d3449",
+                        "secondary": "#ddb7ff",
+                        "surface-container": "#171f33",
+                        "tertiary-container": "#45da7d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "margin-mobile": "24px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Inter"],
+                        "code-stat": ["Geist"],
+                        "display-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-md": ["Geist"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["22px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "code-stat": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "display-lg": ["57px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["45px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom Neon Pulse Animations */
+        @keyframes pulse-neon {
+            0%, 100% { box-shadow: 0 0 15px rgba(69, 218, 125, 0.6), inset 0 0 10px rgba(69, 218, 125, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(69, 218, 125, 0.9), inset 0 0 20px rgba(69, 218, 125, 0.6); }
+        }
+        .glow-active {
+            animation: pulse-neon 1.5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .float-anim {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen w-full flex flex-col font-sans overflow-hidden relative selection:bg-primary-container selection:text-on-primary-container">
+<!-- Atmospheric Background Glow -->
+<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+<div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[80vw] h-[80vw] max-w-[600px] max-h-[600px] bg-primary/5 rounded-full blur-[100px] opacity-60"></div>
+</div>
+<!-- TopAppBar (from JSON) -->
+<!-- Applying style_shell_layout, style_bg_color, style_separation_logic -->
+<header class="flex justify-between items-center px-margin-mobile h-14 w-full z-50 bg-surface-dim/40 backdrop-blur-xl border-b border-outline-variant/20 fixed top-0 left-0">
+<!-- Leading Icon -->
+<button class="text-primary hover:bg-surface-container-high/50 transition-colors active:scale-95 transition-transform p-sm rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+</button>
+<!-- Headline / Brand Logo -->
+<!-- Applying style_brand_logo -->
+<h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary tracking-tight">
+            Wait For It!
+        </h1>
+<!-- Trailing Icon -->
+<button class="text-primary hover:bg-surface-container-high/50 transition-colors active:scale-95 transition-transform p-sm rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+</header>
+<!-- Main Gameplay Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center p-margin-mobile pt-24 pb-safe z-10 w-full max-w-md mx-auto gap-xl relative">
+<!-- Player Info & Scores (Glassmorphism Card) -->
+<div class="w-full bg-surface-container/40 backdrop-blur-xl border-t border-white/10 rounded-xl p-md flex flex-col gap-sm shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+<div class="flex justify-between items-end border-b border-outline-variant/30 pb-sm">
+<span class="font-title-lg text-title-lg text-on-surface">Player 1</span>
+<span class="font-code-stat text-code-stat text-primary-fixed flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span> Online
+                </span>
+</div>
+<div class="flex justify-between items-center pt-xs">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Current Score</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface font-bold">12</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-md text-label-md text-secondary-fixed-dim uppercase">Best Score</span>
+<span class="font-headline-sm text-headline-sm text-secondary-fixed font-bold">45</span>
+</div>
+</div>
+</div>
+<!-- Level Progress -->
+<div class="w-full flex flex-col gap-sm items-center">
+<span class="font-code-stat text-code-stat text-on-surface tracking-widest uppercase">Level 4 - Fast</span>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden shadow-inner">
+<div class="h-full bg-primary-container w-[40%] rounded-full shadow-[0_0_10px_theme(colors.primary-container)]"></div>
+</div>
+</div>
+<!-- Gameplay Lights (The "Ready" Sequence) -->
+<div class="flex items-center justify-center gap-md py-lg my-md relative">
+<!-- Ambient glow behind lights -->
+<div class="absolute inset-0 bg-tertiary-container/10 blur-2xl rounded-full scale-150 pointer-events-none"></div>
+<!-- Inactive Lights -->
+<div class="w-12 h-12 rounded-full bg-surface-bright border border-outline-variant shadow-inner flex items-center justify-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest opacity-50"></div>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-bright border border-outline-variant shadow-inner flex items-center justify-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest opacity-50"></div>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-bright border border-outline-variant shadow-inner flex items-center justify-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest opacity-50"></div>
+</div>
+<!-- Active / Ready Light (Go State) -->
+<div class="w-12 h-12 rounded-full bg-tertiary-container border border-tertiary-fixed glow-active flex items-center justify-center transform scale-110">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed shadow-[0_0_20px_theme(colors.tertiary-fixed)]"></div>
+</div>
+</div>
+<!-- Instruction -->
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-[0.15em] text-center max-w-[200px]">
+            Tap only when the <span class="text-tertiary-container font-bold">4th light</span> turns on!
+        </p>
+<!-- Action Button (Massive TAP) -->
+<div class="flex-1 flex items-end justify-center w-full pb-xl">
+<button class="relative group w-40 h-40 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-[0_0_40px_rgba(34,211,238,0.4)] hover:shadow-[0_0_60px_rgba(34,211,238,0.6)] active:scale-95 transition-all duration-150 float-anim border border-primary-fixed-dim/50">
+<!-- Inner Highlight -->
+<div class="absolute inset-2 rounded-full border border-white/20 pointer-events-none"></div>
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold tracking-tight">TAP!</span>
+</button>
+</div>
+</main>
+<!-- Legend Overlay (As requested) -->
+<div class="fixed bottom-4 right-4 z-50 bg-surface-container-highest/90 backdrop-blur-md border border-outline-variant/50 rounded-lg p-sm flex flex-col gap-xs shadow-2xl scale-75 origin-bottom-right opacity-50 hover:opacity-100 transition-opacity pointer-events-none hover:pointer-events-auto">
+<h4 class="font-code-stat text-code-stat text-on-surface border-b border-outline-variant/50 pb-xs mb-xs">Design Spec</h4>
+<div class="flex items-center gap-sm">
+<div class="w-4 h-4 rounded bg-primary-container"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Primary (Cyan)</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="w-4 h-4 rounded bg-secondary-container"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Secondary (Violet)</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="w-4 h-4 rounded bg-tertiary-container"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Accent (Green)</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="w-4 h-4 rounded bg-background border border-outline-variant"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Background</span>
+</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-xs pt-xs border-t border-outline-variant/50">
+            Font: Inter / Geist<br/>
+            Grid: 8/16/24dp
+        </div>
+</div>
+</body></html>
