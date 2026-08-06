@@ -39,9 +39,10 @@ class MainActivity : AppCompatActivity() {
         )
         tapBtn.setOnClickListener {
             tapBtn.text = "Game Started"
-            tapBtn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#000"))
+            tapBtn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3c494c"))
+            tapBtn.setTextColor(Color.parseColor("#dae2fd"))
+            tapBtn.isEnabled = false
             currentPlayerNameTV.text = "Player $currentUser"
-            updateScore(scoreTV)
         }
     }
     fun updateScore(scoreTV : TextView) {
