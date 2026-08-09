@@ -5,15 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BlueActivity"
-    android:background="#1520B1"
-    >
+    tools:context=".MainActivity"
+    android:background="#9E0D0D">
 
     <Button
-        android:id="@+id/start_over_btn"
+        android:id="@+id/show_green_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Over"
+        android:text="Show Green"
         android:textColor="@color/black"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
