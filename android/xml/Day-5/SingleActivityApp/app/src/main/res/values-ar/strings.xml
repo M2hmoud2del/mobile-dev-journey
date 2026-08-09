@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">تطبيق نشاط واحد</string>
+    <string name="google_descr">شركة Google LLC هي شركة تكنولوجيا أمريكية متعددة الجنسيات متخصصة في الخدمات والمنتجات المرتبطة بالإنتـرنت، والتي تشمل تقنيات الإعلان عبر الإنترنت، ومحرك البحث، والحوسبة السحابية، والبرمجيات، والأجهزة الذكية. وتُعد واحدة من شركات التكنولوجيا الأربع الكبرى، إلى جانب أمازون، وأبل، وفيسبوك.</string>
+    <string name="google_location">ماونتن فيو، كاليفورنيا، الولايات المتحدة</string>
+    <string name="google_URI"><u>google.com</u></string>
 </resources>
