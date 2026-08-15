@@ -9,6 +9,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.datastore.preferences.core.edit
+import androidx.lifecycle.lifecycleScope
+import com.example.quicklogin.PreferencesKeys.EMAIL_KEY
+import com.example.quicklogin.PreferencesKeys.PASSWORD_KEY
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +41,10 @@ class MainActivity : AppCompatActivity() {
             if(isValidEmail){
                 if(rememberCB.isChecked){
                     // Save Data
+                    saveData(email,password)
                 }else{
                     // Delete Data
+                    deleteData()
                 }
             }else{
                 Toast.makeText(this, "The email address you entered is invalid. Please try again.", Toast.LENGTH_SHORT).show();
@@ -44,5 +52,32 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        readData(emailET,passET)
+
+    }
+
+    private fun readData(emailET: EditText, passET: EditText) {
+        lifecycleScope.launch {
+            val data = datastore.data.first()
+            emailET.setText(data[PreferencesKeys.EMAIL_KEY])
+            passET.setText(data[PreferencesKeys.PASSWORD_KEY])
+        }
+    }
+
+    private fun deleteData() {
+        lifecycleScope.launch {
+            datastore.edit {
+                it.clear()
+            }
+        }
+    }
+
+    private fun saveData(email: String, password: String) {
+        lifecycleScope.launch {
+            datastore.edit {
+                it[EMAIL_KEY] = email
+                it[PASSWORD_KEY] = password
+            }
+        }
     }
 }
