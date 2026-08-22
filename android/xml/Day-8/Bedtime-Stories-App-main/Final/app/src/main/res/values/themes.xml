@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.BedtimeStories" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="android:windowBackground">@drawable/background</item>
+        <item name="android:fontFamily">@font/imprima</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="radioButtonStyle">@style/MyRadioButton</item>
+    </style>
+
+    <style name="Theme.BedtimeStories" parent="Base.Theme.BedtimeStories" />
+</resources>

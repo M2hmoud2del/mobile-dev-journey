@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:cardBackgroundColor="@color/card_bg_color"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Font size"
+            android:textSize="48sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="240dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:weightSum="3"
+        tools:checkedButton="@id/small_rb_16">
+
+        <RadioButton
+            android:id="@+id/small_rb_16"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="16dp"
+            android:text="Small text"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/medium_rb_24"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="16dp"
+            android:text="Medium text"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/large_rb_48"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="16dp"
+            android:text="Large text"
+            android:textSize="48sp" />
+
+    </RadioGroup>
+
+</LinearLayout>
