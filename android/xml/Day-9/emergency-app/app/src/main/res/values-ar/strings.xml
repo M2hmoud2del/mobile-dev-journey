@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App & Header Titles -->
+    <string name="app_name">أرقام الطوارئ</string>
+    <string name="header_title">أرقام الطوارئ</string>
+    <string name="header_subtitle">وصول سريع للخدمات الأساسية</string>
+
+    <!-- Contact Names -->
+    <string name="police">الشرطة</string>
+    <string name="ambulance">الإسعاف</string>
+    <string name="fire_department">المطافئ</string>
+    <string name="electricity_emergency">طوارئ الكهرباء</string>
+    <string name="gas_emergency">طوارئ الغاز</string>
+
+    <!-- Categories -->
+    <string name="law_enforcement">إنفاذ القانون</string>
+    <string name="medical_emergency">طوارئ طبية</string>
+    <string name="fire_rescue">الإطفاء والإنقاذ</string>
+    <string name="utility_service">خدمات المرافق</string>
 </resources>

@@ -1,0 +1,19 @@
+<resources>
+    <!-- App & Header Titles -->
+    <string name="app_name">Emergency Contacts</string>
+    <string name="header_title">Emergency Numbers</string>
+    <string name="header_subtitle">Quick access to essential services</string>
+
+    <!-- Contact Names -->
+    <string name="police">Police</string>
+    <string name="ambulance">Ambulance</string>
+    <string name="fire_department">Fire Department</string>
+    <string name="electricity_emergency">Electricity Emergency</string>
+    <string name="gas_emergency">Gas Emergency</string>
+
+    <!-- Categories -->
+    <string name="law_enforcement">Law Enforcement</string>
+    <string name="medical_emergency">Medical Emergency</string>
+    <string name="fire_rescue">Fire &amp; Rescue</string>
+    <string name="utility_service">Utility Service</string>
+</resources>

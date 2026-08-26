@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Endangered Animals</string>
+    <string name="african_forest_elephant">African Forest Elephant</string>
+    <string name="amur_leopard">Amur Leopard</string>
+    <string name="axolotl">Axolotl</string>
+    <string name="javan_rhino">Javan Rhino</string>
+    <string name="mountain_gorilla">Mountain Gorilla</string>
+    <string name="pangolin">Pangolin</string>
+    <string name="saola">Saola</string>
+    <string name="sunda_island_tiger">Sunda Island Tiger</string>
+    <string name="tapanuli_orangutan">Tapanuli Orangutan</string>
+    <string name="vaquita">Vaquita</string>
+</resources>
