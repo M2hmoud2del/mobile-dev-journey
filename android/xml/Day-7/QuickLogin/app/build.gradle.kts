@@ -41,5 +41,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
     // external dependencies
-    implementation("androidx.datastore:datastore-preferences:1.2.1")
+    implementation(libs.androidx.datastore)
 }
