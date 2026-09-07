@@ -67,8 +67,9 @@ Throughout the 4 months, the following domains are covered:
 
 ## ✅ Progress Tracking
 
-- [ ] Kotlin
-- [ ] Android
+- [x] Kotlin
+- [x] Android (XML)
+- [ ] Android (Compose)
 - [ ] Flutter
 - [ ] Software Engineering
 - [ ] Projects
