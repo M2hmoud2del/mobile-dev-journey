@@ -27,4 +27,10 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onBackPressed() {
+        val exit = ExitDialog()
+        exit.isCancelable = false
+        exit.show(supportFragmentManager, null)
+    }
 }
