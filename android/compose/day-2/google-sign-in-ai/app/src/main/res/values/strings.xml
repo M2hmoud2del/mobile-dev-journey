@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Google Sign in AI</string>
+    <string name="sign_in_title">Sign in</string>
+    <string name="sign_in_subtitle">Use your Google Account</string>
+    <string name="email_or_phone_label">Email or phone</string>
+    <string name="forgot_email_button">Forgot email?</string>
+    <string name="guest_mode_info">Not your computer? Use Guest mode to sign in privately.</string>
+    <string name="learn_more_button">Learn more about using Guest mode</string>
+    <string name="create_account_button">Create account</string>
+    <string name="next_button">Next</string>
 </resources>
