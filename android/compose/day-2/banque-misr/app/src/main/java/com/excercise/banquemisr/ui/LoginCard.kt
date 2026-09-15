@@ -1,4 +1,4 @@
-package com.excercise.banquemisr.ui.theme
+package com.excercise.banquemisr.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -15,8 +15,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.excercise.banquemisr.R
-import org.w3c.dom.Text
 
 @Composable
 fun LoginCard(text: String, icon: Int, modifier: Modifier = Modifier, click : () -> Unit) {

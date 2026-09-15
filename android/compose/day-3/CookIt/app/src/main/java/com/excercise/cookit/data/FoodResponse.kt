@@ -1,4 +1,8 @@
 package com.excercise.cookit.data
 
-class FoodResponse {
-}
+import com.google.gson.annotations.SerializedName
+
+class FoodResponse (
+    @SerializedName("meals")
+    val foods: List<FoodModel>
+)

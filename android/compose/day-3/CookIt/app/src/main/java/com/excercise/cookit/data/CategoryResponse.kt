@@ -1,4 +1,6 @@
 package com.excercise.cookit.data
 
-class CategoryResponse {
-}
+
+class CategoryResponse (
+    val categories: List<CategoryModel>
+)

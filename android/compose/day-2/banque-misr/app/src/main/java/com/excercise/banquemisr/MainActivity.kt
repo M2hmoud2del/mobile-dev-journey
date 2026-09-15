@@ -53,7 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import com.excercise.banquemisr.ui.theme.BanqueMisrTheme
-import com.excercise.banquemisr.ui.theme.LoginCard
+import com.excercise.banquemisr.ui.LoginCard
 import com.excercise.banquemisr.ui.theme.Red
 
 class MainActivity : AppCompatActivity() {

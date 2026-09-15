@@ -2,10 +2,13 @@ package com.excercise.cookit.data
 
 import com.google.gson.annotations.SerializedName
 
-class Food {
+class FoodModel (
+    @SerializedName("idMeal")
+    val id: String = "",
+
     @SerializedName("strMeal")
-    val name: String = ""
-    
+    val name: String = "",
+
     @SerializedName("strMealThumb")
-    val imageURL: String = ""
-}
+    val imageURL: String = "",
+)
