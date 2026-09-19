@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,16 +22,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
-import com.excercise.cookit.R
+import coil.compose.SubcomposeAsyncImage
 import com.excercise.cookit.data.CategoryModel
 import com.excercise.cookit.data.FoodModel
+import com.excercise.cookit.ui.theme.gradientColors
 
 @Composable
 fun FoodListItem(
@@ -69,12 +69,27 @@ fun FoodListItem(
             )
         }
 
-        AsyncImage(
+        SubcomposeAsyncImage(
             model = food.imageURL,
-            placeholder = painterResource(R.drawable.food_placeholder),
-            error = painterResource(R.drawable.ic_launcher_background),
             contentDescription = food.name,
             contentScale = ContentScale.Crop,
+            loading = {
+                ShimmerPlaceholder(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(20.dp))
+                )
+            },
+            error = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            color = Color.LightGray,
+                            shape = RoundedCornerShape(20.dp)
+                        )
+                )
+            },
             modifier = Modifier
                 .size(100.dp)
                 .clip(RoundedCornerShape(20.dp))
@@ -88,15 +103,7 @@ fun CategoryListItem(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    val gradientColors = listOf(
-        Color(0xFF9972CB),
-        Color(0xFFE7688F),
-        Color(0xFFF38D6D),
-        Color(0xFFF6D264),
-        Color(0xFFBDD969),
-        Color(0xFF75BAF4),
-        Color(0xFF9972CB)
-    )
+
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -105,12 +112,28 @@ fun CategoryListItem(
                 onClick()
             }
     ) {
-        AsyncImage(
+
+        SubcomposeAsyncImage(
             model = category.imageURL,
-            placeholder = painterResource(R.drawable.category_placeholder),
-            error = painterResource(R.drawable.ic_launcher_background),
             contentDescription = category.name,
             contentScale = ContentScale.Crop,
+            loading = {
+                ShimmerPlaceholder(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(CircleShape)
+                )
+            },
+            error = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            color = Color.LightGray,
+                            shape = CircleShape
+                        )
+                )
+            },
             modifier = Modifier
                 .size(70.dp)
                 .border(
@@ -120,7 +143,6 @@ fun CategoryListItem(
                 )
                 .padding(3.dp)
                 .clip(CircleShape)
-
         )
 
         Spacer(modifier = Modifier.height(8.dp))
