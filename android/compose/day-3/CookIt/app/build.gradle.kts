@@ -57,5 +57,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:5.0.9")
     implementation(platform("androidx.compose:compose-bom:2026.08.00"))
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("com.valentinilk.shimmer:compose-shimmer:1.5.0")
 
 }

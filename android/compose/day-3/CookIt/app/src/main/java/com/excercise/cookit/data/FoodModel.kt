@@ -3,12 +3,12 @@ package com.excercise.cookit.data
 import com.google.gson.annotations.SerializedName
 
 class FoodModel (
-    @SerializedName("idMeal")
+    @SerializedName(ApiConstants.FOOD_ID)
     val id: String = "",
 
-    @SerializedName("strMeal")
+    @SerializedName(ApiConstants.FOOD_NAME)
     val name: String = "",
 
-    @SerializedName("strMealThumb")
+    @SerializedName(ApiConstants.FOOD_IMAGE)
     val imageURL: String = "",
 )
