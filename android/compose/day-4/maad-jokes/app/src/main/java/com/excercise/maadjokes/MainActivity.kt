@@ -26,7 +26,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.excercise.maadjokes.ui.theme.MaadJokesTheme
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +45,18 @@ class MainActivity : ComponentActivity() {
         }
 
         createNotificationChannel()
+        scheduleDailyJoke()
+    }
+
+    private fun scheduleDailyJoke() {
+        val dailyJokeRequest = PeriodicWorkRequestBuilder<JokeWorker>(24, TimeUnit.HOURS)
+            .build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "DailyJokeWork",
+            ExistingPeriodicWorkPolicy.KEEP,
+            dailyJokeRequest
+        )
     }
 
     private fun createNotificationChannel() {
