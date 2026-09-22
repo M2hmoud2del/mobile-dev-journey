@@ -27,6 +27,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.excercise.androidads.ui.theme.AndroidAdsTheme
 import com.google.android.libraries.ads.mobile.sdk.MobileAds
 import com.google.android.libraries.ads.mobile.sdk.banner.AdSize
+import com.google.android.libraries.ads.mobile.sdk.banner.AdView
 import com.google.android.libraries.ads.mobile.sdk.banner.BannerAd
 import com.google.android.libraries.ads.mobile.sdk.banner.BannerAdRequest
 import com.google.android.libraries.ads.mobile.sdk.common.AdLoadCallback
@@ -49,12 +50,8 @@ class MainActivity : ComponentActivity() {
         backgroundScope.launch {
             MobileAds.initialize(
                 this@MainActivity,
-                // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
                 InitializationConfig.Builder("ca-app-pub-3940256099942544~3347511713").build()
-            ) {
-            }
-            // SDK initialization is complete. If you don't want to wait for bidding adapters to finish
-            // initializing, start loading ads now.
+            ) { }
         }
 
         enableEdgeToEdge()
@@ -78,57 +75,59 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun BannerAd(modifier: Modifier = Modifier) {
+    AndroidView(
+        factory = { ctx ->
+            AdView(ctx).apply {
+                val adSize = AdSize.getLargeAnchoredAdaptiveBannerAdSize(ctx, 360)
+                val adRequest = BannerAdRequest.Builder(
+                    "ca-app-pub-3940256099942544/9214589741",
+                    adSize
+                ).build()
+                loadAd(adRequest, object : AdLoadCallback<BannerAd> {
+                    override fun onAdLoaded(ad: BannerAd) {
+                        Log.d("BannerAd", "Banner ad loaded successfully.")
+                    }
 
-    val context = LocalContext.current
-    var bannerAdState by remember { mutableStateOf<BannerAd?>(null) }
-    val activity = LocalActivity.current
-
-    bannerAdState?.let { bannerAd ->
-        AndroidView(
-            factory = {bannerAd.getView(activity!!)},
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-
-    val adSize = AdSize.getLargeAnchoredAdaptiveBannerAdSize(context, 360)
-
-    LaunchedEffect(context) {
-        bannerAdState?.destroy()
-
-        val request = BannerAdRequest.Builder(
-            "ca-app-pub-3940256099942544~3347511713",
-            adSize
-        ).build()
-
-        val result = BannerAd.load(request)
-
-        if (result is AdLoadResult.Success)
-            bannerAdState = result.ad
-
-    }
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        Log.e("BannerAd", "Banner ad failed to load: $adError")
+                    }
+                })
+            }
+        },
+        update = { adView ->
+            adView.requestLayout()
+        },
+        modifier = modifier.fillMaxWidth()
+    )
 }
 
 @Composable
 fun MInterstitialAd(modifier: Modifier = Modifier) {
     var interstitialAd by remember { mutableStateOf<InterstitialAd?>(null) }
-    var activity by remember { mutableStateOf<Activity>(null) }
-    InterstitialAd.load(
-        AdRequest.Builder("ca-app-pub-3940256099942544~3347511713").build(),
-        object : AdLoadCallback<InterstitialAd> {
-            override fun onAdLoaded(ad: InterstitialAd) {
-                interstitialAd = ad
-            }
+    val activity = LocalActivity.current
 
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                interstitialAd = null
-            }
-        },
-    )
+    LaunchedEffect(Unit) {
+        InterstitialAd.load(
+            AdRequest.Builder("ca-app-pub-3940256099942544/1033173712").build(),
+            object : AdLoadCallback<InterstitialAd> {
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    interstitialAd = ad
+                    Log.d("MInterstitialAd", "Interstitial ad loaded successfully.")
+                }
+
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    interstitialAd = null
+                    Log.e("MInterstitialAd", "Interstitial ad failed to load: $adError")
+                }
+            },
+        )
+    }
 
     Button(
         onClick = {
-            //show ad
-            showAd(interstitialAd, activity!!)
+            activity?.let {
+                showAd(interstitialAd, it)
+            }
         }
     ) {
         Text("Next")
@@ -137,28 +136,23 @@ fun MInterstitialAd(modifier: Modifier = Modifier) {
 
 private fun showAd(interstitialAd: InterstitialAd?, activity: Activity) {
     // Show the ad.
-    var ad = interstitialAd
-    if (interstitialAd != null){
-    interstitialAd.show(activity)
-    ad.adEventCallback =
+    val ad = interstitialAd
+    if (ad != null) {
+        ad.adEventCallback =
             object : InterstitialAdEventCallback {
                 override fun onAdDismissedFullScreenContent() {
                     // Interstitial ad did dismiss.
-                    ad = null
                     //Navigate to second screen
                 }
 
-                override fun onAdFailedToShowFullScreenContent(
-                    fullScreenContentError: FullScreenContentError
-                ) {
+                override fun onAdFailedToShowFullScreenContent(fullScreenContentError: FullScreenContentError) {
                     // Navigate to second screen
                 }
             }
-
-    }else{
+        ad.show(activity)
+    } else {
         // Navigate to second screen
     }
-
 }
 @Preview
 @Composable
