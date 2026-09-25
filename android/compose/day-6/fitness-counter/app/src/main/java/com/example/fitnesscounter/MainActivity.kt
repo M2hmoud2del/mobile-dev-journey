@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitnesscounter.ui.theme.FitnessCounterTheme
 
 class MainActivity : ComponentActivity() {
@@ -45,9 +47,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun FitnessScreen(modifier: Modifier = Modifier) {
-    var counter by rememberSaveable { mutableIntStateOf(0) }
+fun FitnessScreen(modifier: Modifier = Modifier,viewModel: CounterViewModel = viewModel()) {
 
+    val counter by viewModel.liveCounter.collectAsState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -70,7 +72,7 @@ fun FitnessScreen(modifier: Modifier = Modifier) {
                     .size(240.dp)
                     .clip(CircleShape)
                     .clickable{
-                        ++counter
+                        viewModel.incrementCounter()
                     }
             )
         }
