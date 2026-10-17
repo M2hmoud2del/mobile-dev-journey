@@ -51,11 +51,22 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier,viewModel: NoteViewModel = viewModel()) {
+    val notes by viewModel.getNotes().collectAsState(emptyList())
+    HomeScreenContent(
+        notes = notes,
+        modifier = modifier
+    )
+}
 
+@Composable
+fun HomeScreenContent(
+    notes: List<Note>,
+    modifier: Modifier = Modifier
+) {
     val activity = LocalActivity.current
     val context = LocalContext.current
-    val notes by viewModel.getNotes().collectAsState(emptyList())
     Scaffold(
+        modifier = modifier,
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
@@ -111,7 +122,14 @@ fun NoteListItem(note: Note,modifier: Modifier = Modifier, onClick: () -> Unit) 
 @Preview(showSystemUi = true, device = "spec:width=411dp,height=891dp")
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+    NotesAppTheme {
+        HomeScreenContent(
+            notes = listOf(
+                Note(id = 1, content = "Sample Note 1"),
+                Note(id = 2, content = "Sample Note 2")
+            )
+        )
+    }
 }
 
 @Preview

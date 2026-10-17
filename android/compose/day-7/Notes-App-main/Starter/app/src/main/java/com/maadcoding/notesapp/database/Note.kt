@@ -12,5 +12,5 @@ class Note (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     val id: Int = 0,
-    val content: String,
+    var content: String,
     ): Parcelable

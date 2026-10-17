@@ -59,6 +59,23 @@ fun EditNoteScreen(
 
     val activity = LocalActivity.current
     val context = LocalContext.current
+
+    EditNoteContent(note, modifier,
+        onUpdate = { content ->
+            val n = Note(note.id, content)
+            viewModel.upsert(n)
+            activity?.finish()
+            Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show();
+    },
+        onDelete = {
+            viewModel.delete(note)
+            Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
+            activity?.finish()
+        })
+}
+
+@Composable
+fun EditNoteContent(note: Note,modifier: Modifier = Modifier, onUpdate: (String) -> Unit={}, onDelete: () -> Unit = {}) {
     val noteFieldState = rememberTextFieldState(note.content)
 
     Column(
@@ -83,10 +100,7 @@ fun EditNoteScreen(
         ) {
             OutlinedButton(
                 onClick = {
-                    val n = Note(note.id, noteFieldState.text.toString())
-                    viewModel.upsert(n)
-                    Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show();
-                    activity?.finish()
+                    onUpdate(noteFieldState.text.toString())
                 },
                 modifier = modifier
                     .weight(1f)
@@ -94,11 +108,7 @@ fun EditNoteScreen(
                 Text(text = "Update")
             }
             OutlinedButton(
-                onClick = {
-                    viewModel.delete(note)
-                    Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
-                    activity?.finish()
-                },
+                onClick = onDelete,
                 modifier = modifier
                     .weight(1f)
                     .padding(start = 16.dp)
@@ -111,6 +121,6 @@ fun EditNoteScreen(
 
 @Preview(showSystemUi = true, device = "spec:width=411dp,height=891dp")
 @Composable
-private fun EditNoteScreenPreview() {
-    EditNoteScreen(Note(0,""))
+private fun EditNoteScreenContentPreview() {
+    EditNoteContent(Note(0,""))
 }

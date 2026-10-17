@@ -3,6 +3,7 @@ package com.maadcoding.notesapp.ui.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
@@ -46,6 +47,20 @@ class AddNoteActivity : ComponentActivity() {
 fun AddNoteScreen(modifier: Modifier = Modifier,viewModel: NoteViewModel = viewModel()) {
 
     val context = LocalContext.current
+    val activity = LocalActivity.current
+
+    AddNoteContent(modifier) { content ->
+        val note = Note(content = content)
+        viewModel.upsert(note)
+        Toast.makeText(context, "Saved!", Toast.LENGTH_SHORT).show()
+        activity?.finish()
+    }
+
+}
+
+@Composable
+fun AddNoteContent(modifier: Modifier = Modifier, onSave : (String) -> Unit = {}) {
+
     val noteFieldState = rememberTextFieldState()
 
     Column(
@@ -65,9 +80,7 @@ fun AddNoteScreen(modifier: Modifier = Modifier,viewModel: NoteViewModel = viewM
         OutlinedButton(
             onClick = {
                 val content = noteFieldState.text.toString()
-                val note = Note(content = content)
-                viewModel.upsert(note)
-                Toast.makeText(context, "Saved!", Toast.LENGTH_SHORT).show();
+                onSave(content)
                 noteFieldState.clearText()
             },
             modifier = Modifier
@@ -80,8 +93,10 @@ fun AddNoteScreen(modifier: Modifier = Modifier,viewModel: NoteViewModel = viewM
     }
 }
 
-@Preview(showSystemUi = true, device = "spec:width=411dp,height=891dp")
+@Preview(showSystemUi = true)
 @Composable
-private fun AddNoteScreenPreview() {
-    AddNoteScreen()
+private fun AddNoteContentPreview() {
+
+    AddNoteContent {  }
+    
 }
