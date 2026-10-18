@@ -78,5 +78,12 @@ fun TripPriceScreen(
 }
 
 fun calculatePrice(km: Float, time: Int, traffic: Float): Int {
-    return 0
+    if(km < 1)
+        return 60
+
+    val baseFare = 8
+    val kmPrice = km * 7.5
+    var total = baseFare + kmPrice + time
+    total += (total * traffic)
+    return total.toInt()
 }

@@ -1,0 +1,22 @@
+<journey name="Short Distance Minimum Base Fare">
+    <description>
+        Verifies that short trips under 1 kilometer trigger the flat base fare rule of 60 EGP, regardless of duration or traffic conditions.
+    </description>
+    <actions>
+        <action>
+            Tap the "Start" button on the home screen. Verify navigation to the distance input screen.
+        </action>
+        <action>
+            Clear the text field, type "0.6" into "Distance in kilometers", and tap "Next". Verify navigation to the time input screen.
+        </action>
+        <action>
+            Clear the text field, type "5" into "Time in minutes", and tap "Next". Verify navigation to the traffic options screen.
+        </action>
+        <action>
+            Tap "Calculate Trip Price" with default "Feeling Lucky (+0%)" selected.
+        </action>
+        <action>
+            Verify that the estimated price displayed is "60" EGP and the snackbar message "Price Calculated Successfully!" appears.
+        </action>
+    </actions>
+</journey>

@@ -1,0 +1,22 @@
+<journey name="Standard Trip Price Calculation - Feeling Lucky Traffic">
+    <description>
+        Verifies the primary user flow of the Uber Trip application: starting from the home screen, entering a distance of 10 kilometers, entering a duration of 20 minutes, selecting the default 'Feeling Lucky (+0%)' traffic option, and calculating the estimated trip price. Validates that the calculated price displays 103 EGP and the success snackbar is shown.
+    </description>
+    <actions>
+        <action>
+            Tap the "Start" button on the home screen. Verify that the app navigates to the distance entry screen displaying the header "Enter the total distance".
+        </action>
+        <action>
+            Clear the text field, type "10" into the text field labeled "Distance in kilometers", and tap "Next". Verify that the app navigates to the time entry screen displaying "Enter the total time".
+        </action>
+        <action>
+            Clear the text field, type "20" into the text field labeled "Time in minutes", and tap "Next". Verify that the app navigates to the traffic options screen.
+        </action>
+        <action>
+            Ensure "Feeling Lucky (+0%)" is selected and tap the "Calculate Trip Price" button.
+        </action>
+        <action>
+            Verify that the estimated trip price screen displays "Estimated trip price is:", the calculated price "103", currency "Egp", and the snackbar notification "Price Calculated Successfully!".
+        </action>
+    </actions>
+</journey>

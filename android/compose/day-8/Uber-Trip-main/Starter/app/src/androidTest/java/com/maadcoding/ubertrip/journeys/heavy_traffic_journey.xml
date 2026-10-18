@@ -1,0 +1,22 @@
+<journey name="Trip Price Calculation - Heavy Traffic">
+    <description>
+        Verifies trip price calculation under heavy traffic conditions by selecting the 'Heavy Traffic (+10%)' option for a 10 km, 20 minute trip. Validates that the estimated price calculates to 113 EGP.
+    </description>
+    <actions>
+        <action>
+            Tap "Start" on the home screen to open the distance entry screen.
+        </action>
+        <action>
+            Clear the text field, type "10" into the text field labeled "Distance in kilometers", and tap "Next".
+        </action>
+        <action>
+            Clear the text field, type "20" into the text field labeled "Time in minutes", and tap "Next".
+        </action>
+        <action>
+            Tap the "Heavy Traffic (+10%)" radio button option to select heavy traffic, then tap "Calculate Trip Price".
+        </action>
+        <action>
+            Verify that the estimated trip price screen displays "113" and the "Price Calculated Successfully!" message.
+        </action>
+    </actions>
+</journey>

@@ -1,0 +1,28 @@
+<journey name="Screen Navigation and Backstack Verification">
+    <description>
+        Verifies step-by-step forward navigation and backward navigation between screens in the Uber Trip app using system back gestures/actions.
+    </description>
+    <actions>
+        <action>
+            Verify that the app launches on the Start screen with the "Start" button displayed.
+        </action>
+        <action>
+            Tap the "Start" button. Verify navigation to the distance screen showing "Enter the total distance".
+        </action>
+        <action>
+            Type "5" into "Distance in kilometers" and tap "Next". Verify navigation to "Enter the total time".
+        </action>
+        <action>
+            Navigate back using the system back action. Verify that the app returns to the "Enter the total distance" screen.
+        </action>
+        <action>
+            Tap "Next" to return to "Enter the total time".
+        </action>
+        <action>
+            Type "10" into "Time in minutes" and tap "Next". Verify navigation to the traffic options screen displaying "Calculate Trip Price".
+        </action>
+        <action>
+            Navigate back using the system back action. Verify that the app returns to the "Enter the total time" screen.
+        </action>
+    </actions>
+</journey>

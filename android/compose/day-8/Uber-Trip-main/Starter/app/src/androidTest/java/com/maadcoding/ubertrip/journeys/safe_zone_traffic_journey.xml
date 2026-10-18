@@ -1,0 +1,22 @@
+<journey name="Trip Price Calculation - Safe Zone Traffic">
+    <description>
+        Verifies trip price calculation with a 5% traffic surcharge by selecting the 'Safe Zone (+5%)' option for a 10 km, 20 minute trip. Validates that the estimated price calculates to 108 EGP.
+    </description>
+    <actions>
+        <action>
+            Tap the "Start" button on the home screen to navigate to the distance entry screen.
+        </action>
+        <action>
+            Clear the input field, type "10" into the "Distance in kilometers" field, and tap "Next". Verify navigation to "Enter the total time".
+        </action>
+        <action>
+            Clear the input field, type "20" into the "Time in minutes" field, and tap "Next". Verify navigation to traffic options.
+        </action>
+        <action>
+            Tap the "Safe Zone (+5%)" radio button option to select it, then tap "Calculate Trip Price".
+        </action>
+        <action>
+            Verify that the calculated trip price screen displays "108" and the snackbar "Price Calculated Successfully!".
+        </action>
+    </actions>
+</journey>
