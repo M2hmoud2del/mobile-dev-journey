@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <journey name="Trip Price Calculation - Heavy Traffic">
     <description>
         Verifies trip price calculation under heavy traffic conditions by selecting the 'Heavy Traffic (+10%)' option for a 10 km, 20 minute trip. Validates that the estimated price calculates to 113 EGP.

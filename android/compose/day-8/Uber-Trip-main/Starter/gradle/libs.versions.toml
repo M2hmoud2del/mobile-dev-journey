@@ -10,6 +10,9 @@ kotlin = "2.0.21"
 composeBom = "2026.06.00"
 nav3 = "1.0.0"
 serialization = "1.7.3"
+junitPlatformLauncher = "1.13.4"
+junitPlatformEngine = "1.13.4"
+journeysJunitEngine = "0.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,6 +32,9 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 androidx-navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "nav3" }
 androidx-navigation3-ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "nav3" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatformLauncher" }
+junit-platform-engine = { group = "org.junit.platform", name = "junit-platform-engine", version.ref = "junitPlatformEngine" }
+journeys-junit-engine = { group = "com.android.tools.journeys", name = "journeys-junit-engine", version.ref = "journeysJunitEngine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -37,13 +38,13 @@ fun NavApp(modifier: Modifier = Modifier) {
 
         },
         popTransitionSpec = {
-            slideInVertically(initialOffsetY = { -it }) + fadeIn() togetherWith slideOutHorizontally(
-                targetOffsetX = { it }) + fadeOut()
+            slideInVertically(initialOffsetY = { -it }) + fadeIn() togetherWith slideOutVertically(
+                targetOffsetY = { it }) + fadeOut()
 
         },
         predictivePopTransitionSpec = {
-            slideInVertically(initialOffsetY = { -it }) + fadeIn() togetherWith slideOutHorizontally(
-                targetOffsetX = { it }) + fadeOut()
+            slideInVertically(initialOffsetY = { -it }) + fadeIn() togetherWith slideOutVertically(
+                targetOffsetY = { it }) + fadeOut()
 
         },
         modifier = modifier

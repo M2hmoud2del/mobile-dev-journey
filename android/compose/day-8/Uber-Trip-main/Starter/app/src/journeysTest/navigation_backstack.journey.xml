@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <journey name="Screen Navigation and Backstack Verification">
     <description>
         Verifies step-by-step forward navigation and backward navigation between screens in the Uber Trip app using system back gestures/actions.

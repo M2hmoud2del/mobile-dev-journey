@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <journey name="Trip Price Calculation - Safe Zone Traffic">
     <description>
         Verifies trip price calculation with a 5% traffic surcharge by selecting the 'Safe Zone (+5%)' option for a 10 km, 20 minute trip. Validates that the estimated price calculates to 108 EGP.
