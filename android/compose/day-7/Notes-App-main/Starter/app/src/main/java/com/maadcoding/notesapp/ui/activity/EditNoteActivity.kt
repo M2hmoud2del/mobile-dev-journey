@@ -1,12 +1,6 @@
 package com.maadcoding.notesapp.ui.activity
 
-import android.os.Build
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.LocalActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,55 +20,39 @@ import com.maadcoding.notesapp.database.Note
 import com.maadcoding.notesapp.ui.theme.NotesAppTheme
 import com.maadcoding.notesapp.ui.viewmodel.NoteViewModel
 
-class EditNoteActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        val note = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            intent.getParcelableExtra("note", Note::class.java)!!
-        else
-            intent.getParcelableExtra("note")!!
-
-        setContent {
-            NotesAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    EditNoteScreen(
-                        note = note,
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
-        }
-    }
-}
-
 @Composable
 fun EditNoteScreen(
     note: Note,
     modifier: Modifier = Modifier,
     viewModel: NoteViewModel = viewModel(),
+    onNavigateBack: () -> Unit = {}
 ) {
-
-    val activity = LocalActivity.current
     val context = LocalContext.current
 
-    EditNoteContent(note, modifier,
+    EditNoteContent(
+        note = note,
+        modifier = modifier,
         onUpdate = { content ->
             val n = Note(note.id, content)
             viewModel.upsert(n)
-            activity?.finish()
-            Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show();
-    },
+            Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show()
+            onNavigateBack()
+        },
         onDelete = {
             viewModel.delete(note)
-            Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
-            activity?.finish()
-        })
+            Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
+            onNavigateBack()
+        }
+    )
 }
 
 @Composable
-fun EditNoteContent(note: Note,modifier: Modifier = Modifier, onUpdate: (String) -> Unit={}, onDelete: () -> Unit = {}) {
+fun EditNoteContent(
+    note: Note,
+    modifier: Modifier = Modifier,
+    onUpdate: (String) -> Unit = {},
+    onDelete: () -> Unit = {}
+) {
     val noteFieldState = rememberTextFieldState(note.content)
 
     Column(
@@ -83,8 +60,6 @@ fun EditNoteContent(note: Note,modifier: Modifier = Modifier, onUpdate: (String)
             .fillMaxSize()
             .padding(horizontal = 32.dp)
     ) {
-
-
         OutlinedTextField(
             state = noteFieldState,
             label = { Text("Note details") },
@@ -94,7 +69,7 @@ fun EditNoteContent(note: Note,modifier: Modifier = Modifier, onUpdate: (String)
         )
 
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 32.dp)
         ) {
@@ -102,14 +77,13 @@ fun EditNoteContent(note: Note,modifier: Modifier = Modifier, onUpdate: (String)
                 onClick = {
                     onUpdate(noteFieldState.text.toString())
                 },
-                modifier = modifier
-                    .weight(1f)
+                modifier = Modifier.weight(1f)
             ) {
                 Text(text = "Update")
             }
             OutlinedButton(
                 onClick = onDelete,
-                modifier = modifier
+                modifier = Modifier
                     .weight(1f)
                     .padding(start = 16.dp)
             ) {
@@ -122,5 +96,7 @@ fun EditNoteContent(note: Note,modifier: Modifier = Modifier, onUpdate: (String)
 @Preview(showSystemUi = true, device = "spec:width=411dp,height=891dp")
 @Composable
 private fun EditNoteScreenContentPreview() {
-    EditNoteContent(Note(0,""))
+    NotesAppTheme {
+        EditNoteContent(Note(0, "Sample note"))
+    }
 }

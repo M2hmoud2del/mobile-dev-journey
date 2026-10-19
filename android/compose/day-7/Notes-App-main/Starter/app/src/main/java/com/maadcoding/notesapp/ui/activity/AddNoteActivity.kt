@@ -1,11 +1,6 @@
 package com.maadcoding.notesapp.ui.activity
 
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.LocalActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +9,6 @@ import androidx.compose.foundation.text.input.clearText
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,40 +21,27 @@ import com.maadcoding.notesapp.database.Note
 import com.maadcoding.notesapp.ui.theme.NotesAppTheme
 import com.maadcoding.notesapp.ui.viewmodel.NoteViewModel
 
-class AddNoteActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            NotesAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AddNoteScreen(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
-        }
-    }
-}
-
 @Composable
-fun AddNoteScreen(modifier: Modifier = Modifier,viewModel: NoteViewModel = viewModel()) {
-
+fun AddNoteScreen(
+    modifier: Modifier = Modifier,
+    viewModel: NoteViewModel = viewModel(),
+    onNavigateBack: () -> Unit = {}
+) {
     val context = LocalContext.current
-    val activity = LocalActivity.current
 
     AddNoteContent(modifier) { content ->
         val note = Note(content = content)
         viewModel.upsert(note)
         Toast.makeText(context, "Saved!", Toast.LENGTH_SHORT).show()
-        activity?.finish()
+        onNavigateBack()
     }
-
 }
 
 @Composable
-fun AddNoteContent(modifier: Modifier = Modifier, onSave : (String) -> Unit = {}) {
-
+fun AddNoteContent(
+    modifier: Modifier = Modifier,
+    onSave: (String) -> Unit = {}
+) {
     val noteFieldState = rememberTextFieldState()
 
     Column(
@@ -68,7 +49,6 @@ fun AddNoteContent(modifier: Modifier = Modifier, onSave : (String) -> Unit = {}
             .fillMaxSize()
             .padding(horizontal = 32.dp)
     ) {
-
         OutlinedTextField(
             state = noteFieldState,
             label = { Text("Note details") },
@@ -89,14 +69,13 @@ fun AddNoteContent(modifier: Modifier = Modifier, onSave : (String) -> Unit = {}
         ) {
             Text(text = "Save")
         }
-
     }
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun AddNoteContentPreview() {
-
-    AddNoteContent {  }
-    
+    NotesAppTheme {
+        AddNoteContent { }
+    }
 }

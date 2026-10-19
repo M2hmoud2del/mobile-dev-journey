@@ -1,13 +1,12 @@
 package com.maadcoding.notesapp.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -26,13 +25,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
 import com.maadcoding.notesapp.database.Note
+import com.maadcoding.notesapp.navigation.AddNoteScreenKey
+import com.maadcoding.notesapp.navigation.EditNoteScreenKey
+import com.maadcoding.notesapp.navigation.HomeScreenKey
 import com.maadcoding.notesapp.ui.icon.add
 import com.maadcoding.notesapp.ui.theme.NotesAppTheme
 import com.maadcoding.notesapp.ui.viewmodel.NoteViewModel
@@ -43,36 +49,85 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NotesAppTheme {
-                HomeScreen()
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    NotesNavApp(modifier = Modifier.padding(innerPadding))
+                }
             }
         }
     }
 }
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier,viewModel: NoteViewModel = viewModel()) {
+fun NotesNavApp(modifier: Modifier = Modifier) {
+    val backStack = rememberNavBackStack(HomeScreenKey)
+
+    NavDisplay(
+        backStack = backStack,
+        onBack = { backStack.removeLastOrNull() },
+        entryDecorators = listOf(
+            rememberSaveableStateHolderNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator()
+        ),
+        entryProvider = entryProvider {
+            entry<HomeScreenKey> {
+                HomeScreen(
+                    onAddNoteClick = {
+                        backStack.add(AddNoteScreenKey)
+                    },
+                    onNoteClick = { note ->
+                        backStack.add(EditNoteScreenKey(note))
+                    }
+                )
+            }
+            entry<AddNoteScreenKey> {
+                AddNoteScreen(
+                    onNavigateBack = {
+                        backStack.removeLastOrNull()
+                    }
+                )
+            }
+            entry<EditNoteScreenKey> { key ->
+                EditNoteScreen(
+                    note = key.note,
+                    onNavigateBack = {
+                        backStack.removeLastOrNull()
+                    }
+                )
+            }
+        },
+        modifier = modifier
+    )
+}
+
+@Composable
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: NoteViewModel = viewModel(),
+    onAddNoteClick: () -> Unit = {},
+    onNoteClick: (Note) -> Unit = {}
+) {
     val notes by viewModel.getNotes().collectAsState(emptyList())
     HomeScreenContent(
         notes = notes,
-        modifier = modifier
+        modifier = modifier,
+        onAddNoteClick = onAddNoteClick,
+        onNoteClick = onNoteClick
     )
 }
 
 @Composable
 fun HomeScreenContent(
     notes: List<Note>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onAddNoteClick: () -> Unit = {},
+    onNoteClick: (Note) -> Unit = {}
 ) {
-    val activity = LocalActivity.current
-    val context = LocalContext.current
     Scaffold(
         modifier = modifier,
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {
-                    activity?.startActivity(Intent(context, AddNoteActivity::class.java))
-                },
+                onClick = onAddNoteClick,
                 containerColor = Color.Blue,
             ) {
                 Icon(
@@ -86,11 +141,9 @@ fun HomeScreenContent(
         LazyColumn(
             modifier = Modifier.padding(innerPadding)
         ) {
-            items(notes){ note ->
+            items(notes) { note ->
                 NoteListItem(note) {
-                    val i = Intent(context, EditNoteActivity::class.java)
-                    i.putExtra("note",note)
-                    activity?.startActivity(i)
+                    onNoteClick(note)
                 }
             }
         }
@@ -98,7 +151,7 @@ fun HomeScreenContent(
 }
 
 @Composable
-fun NoteListItem(note: Note,modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun NoteListItem(note: Note, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         modifier = modifier
@@ -135,5 +188,5 @@ private fun HomeScreenPreview() {
 @Preview
 @Composable
 private fun NoteListItemPreview() {
-    NoteListItem(Note(5,"")) {}
+    NoteListItem(Note(5, "")) {}
 }
