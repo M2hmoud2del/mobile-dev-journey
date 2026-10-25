@@ -23,3 +23,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "My Compose Project"
+include(":app")

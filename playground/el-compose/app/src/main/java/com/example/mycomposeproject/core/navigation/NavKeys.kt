@@ -1,4 +1,4 @@
-package com.example.mycomposeproject.navigation
+package com.example.mycomposeproject.core.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
