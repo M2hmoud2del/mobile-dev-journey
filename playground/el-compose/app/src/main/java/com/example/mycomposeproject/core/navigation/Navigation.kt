@@ -1,0 +1,23 @@
+package com.example.mycomposeproject.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
+import com.example.mycomposeproject.feature.auth.presentation.LoginScreen
+
+@Composable
+fun NavApp(modifier: Modifier = Modifier) {
+    val backStack = rememberNavBackStack(Login)
+
+    NavDisplay(
+        backStack = backStack,
+        entryProvider = entryProvider {
+            entry<Login> {
+                LoginScreen()
+            }
+        },
+        modifier = modifier
+    )
+}
