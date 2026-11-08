@@ -39,6 +39,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 
 import androidx.compose.runtime.getValue
 
@@ -70,8 +71,14 @@ fun App() {
     var isLoading by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf<String?>(null) }
 
+    val locatable = rememberLocatable()
+    var location by remember { mutableStateOf<Location?>(null) }
+
+    LaunchedEffect(Unit){
+        location = locatable.getLocation()
+    }
     //TODO (1) -> Uncomment after requesting the "location"
-    //val canFetch = location != null && !isLoading
+    val canFetch = location != null && !isLoading
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Box(
@@ -100,17 +107,17 @@ fun App() {
                         horizontalArrangement = Arrangement.Center
                     ) {
                         //TODO (2) -> Uncomment after requesting the "location"
-                        /*if (location == null) {
+                        if (location == null) {
                             CircularProgressIndicator(
                                 modifier = Modifier.size(16.dp),
                                 strokeWidth = 2.dp,
                                 color = Accent
                             )
                             Spacer(Modifier.size(8.dp))
-                        }*/
+                        }
                         Text(
                             //TODO (3) -> Update text with fetched "lat" and "lon"
-                            text = "Getting location...",
+                            text = location?.let { "lat: ${it.latitude}, lon: ${it.longitude}" } ?: "Getting location...",
                             style = MaterialTheme.typography.bodyMedium,
                             color = TextSecondary,
                             textAlign = TextAlign.Center
@@ -153,7 +160,7 @@ fun App() {
 
                     //TODO (4) -> Change "enabled = true" to "enabled = canFetch"
                     Button(
-                        enabled = true,
+                        enabled = canFetch,
                         shape = RoundedCornerShape(16.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Accent,

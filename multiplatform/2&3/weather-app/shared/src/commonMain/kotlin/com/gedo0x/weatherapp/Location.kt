@@ -9,7 +9,7 @@ data class Location(
 )
 
 interface Locatable {
-    fun getLocation(): Location
+    suspend fun getLocation(): Location
 }
 
 @Composable
