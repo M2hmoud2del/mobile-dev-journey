@@ -184,9 +184,9 @@ fun App() {
                             coroutineScope.launch {
                                 try {
                                     weatherText = "${getWeather(loc.latitude,loc.longitude)}°C"
-                                }catch (e: Exception){
-                                    errorText = "Couldn't load temprature. Try again."
-                                }finally {
+                                } catch (e: Exception) {
+                                    errorText = "Couldn't load temperature: ${e.message ?: e.toString()}"
+                                } finally {
                                     isLoading = false
                                 }
                             }

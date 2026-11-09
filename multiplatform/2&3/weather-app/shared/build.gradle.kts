@@ -49,6 +49,7 @@ kotlin {
             val compassVersion = "4.0.0"
             implementation("dev.jordond.compass:geolocation-mobile:${compassVersion}")
             implementation("dev.jordond.compass:permissions-mobile:${compassVersion}")
+            implementation("io.ktor:ktor-client-darwin:3.6.0")
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
