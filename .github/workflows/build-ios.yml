@@ -8,8 +8,8 @@ on:
 
 jobs:
   build-ios:
-    # Xcode/iOS builds require a macOS runner
-    runs-on: macos-latest
+    # Use explicit macos-14 runner to avoid runner allocation timeouts on macos-latest
+    runs-on: macos-14
 
     defaults:
       run:
