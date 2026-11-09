@@ -8,8 +8,8 @@ on:
 
 jobs:
   build-ios:
-    # Use explicit macos-14 runner to avoid runner allocation timeouts on macos-latest
-    runs-on: macos-14
+    # Use macos-15 (supported GitHub-hosted macOS runner)
+    runs-on: macos-15
 
     defaults:
       run:
