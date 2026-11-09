@@ -8,8 +8,8 @@ on:
 
 jobs:
   build-ios:
-    # Use macos-15 (supported GitHub-hosted macOS runner)
-    runs-on: macos-15
+    # Xcode/iOS builds require a macOS runner
+    runs-on: macos-latest
 
     defaults:
       run:
