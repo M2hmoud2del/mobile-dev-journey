@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    kotlin("plugin.serialization")
 }
 
 kotlin {
@@ -44,6 +45,11 @@ kotlin {
             implementation("com.google.android.gms:play-services-location:21.4.0")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.11.0")
         }
+        iosMain.dependencies {
+            val compassVersion = "4.0.0"
+            implementation("dev.jordond.compass:geolocation-mobile:${compassVersion}")
+            implementation("dev.jordond.compass:permissions-mobile:${compassVersion}")
+        }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
@@ -53,6 +59,12 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation("io.ktor:ktor-client-core:3.6.0")
+            implementation("io.ktor:ktor-client-cio:3.6.0")
+            implementation("io.ktor:ktor-client-content-negotiation:3.6.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.12.0-RC")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.6.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

@@ -46,6 +46,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 
 import androidx.compose.runtime.setValue
 
@@ -64,6 +65,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.ui.unit.sp
+import com.gedo0x.weatherapp.api.getWeather
+import kotlinx.coroutines.launch
 
 @Composable
 fun App() {
@@ -74,10 +77,12 @@ fun App() {
     val locatable = rememberLocatable()
     var location by remember { mutableStateOf<Location?>(null) }
 
+    val coroutineScope = rememberCoroutineScope()
+
     LaunchedEffect(Unit){
         location = locatable.getLocation()
     }
-    //TODO (1) -> Uncomment after requesting the "location"
+
     val canFetch = location != null && !isLoading
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -172,7 +177,20 @@ fun App() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(52.dp),
-                        onClick = {}
+                        onClick = {
+                            val loc = location ?: return@Button
+                            isLoading = true
+                            errorText = null
+                            coroutineScope.launch {
+                                try {
+                                    weatherText = "${getWeather(loc.latitude,loc.longitude)}°C"
+                                }catch (e: Exception){
+                                    errorText = "Couldn't load temprature. Try again."
+                                }finally {
+                                    isLoading = false
+                                }
+                            }
+                        }
                     ) {
                         Text(
                             text = if (isLoading) "Loading..." else "Get Temperature",
