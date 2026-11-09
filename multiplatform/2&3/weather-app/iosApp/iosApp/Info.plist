@@ -4,5 +4,10 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need your location to show local weather info.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We need your location to show local weather info.</string>
 </dict>
 </plist>
