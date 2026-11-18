@@ -66,6 +66,7 @@ kotlin {
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.12.0-RC")
             implementation("io.ktor:ktor-serialization-kotlinx-json:3.6.0")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
+            implementation("io.github.alexzhirkevich:cupertino-adaptive:0.1.0-alpha03")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

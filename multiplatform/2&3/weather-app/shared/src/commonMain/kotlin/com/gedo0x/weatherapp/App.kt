@@ -66,10 +66,17 @@ import androidx.compose.ui.unit.dp
 
 import androidx.compose.ui.unit.sp
 import com.gedo0x.weatherapp.api.getWeather
+import io.github.alexzhirkevich.cupertino.adaptive.AdaptiveButton
+import io.github.alexzhirkevich.cupertino.adaptive.AdaptiveTheme
+import io.github.alexzhirkevich.cupertino.adaptive.ExperimentalAdaptiveApi
+import io.github.alexzhirkevich.cupertino.adaptive.Theme as AdaptiveThemeTarget
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalAdaptiveApi::class)
 @Composable
-fun App() {
+fun App(
+    theme: Theme = determineTheme()
+) {
     var weatherText by remember { mutableStateOf("?°C") }
     var isLoading by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf<String?>(null) }
@@ -85,118 +92,156 @@ fun App() {
 
     val canFetch = location != null && !isLoading
 
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Brush.verticalGradient(listOf(SkyTop, SkyBottom)))
-                .padding(innerPadding)
-                .padding(24.dp),
-        ) {
-            Card(
-                shape = RoundedCornerShape(28.dp),
-                colors = CardDefaults.cardColors(containerColor = CardColor),
-                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-                modifier = Modifier.fillMaxWidth()
+    val targetTheme = when (theme) {
+        Theme.Material3 -> AdaptiveThemeTarget.Material3
+        Theme.Cupertino -> AdaptiveThemeTarget.Cupertino
+    }
+
+    AdaptiveTheme(target = targetTheme) {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Brush.verticalGradient(listOf(SkyTop, SkyBottom)))
+                    .padding(innerPadding)
+                    .padding(24.dp),
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 32.dp)
+                Card(
+                    shape = RoundedCornerShape(28.dp),
+                    colors = CardDefaults.cardColors(containerColor = CardColor),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        //TODO (2) -> Uncomment after requesting the "location"
-                        if (location == null) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(16.dp),
-                                strokeWidth = 2.dp,
-                                color = Accent
-                            )
-                            Spacer(Modifier.size(8.dp))
-                        }
-                        Text(
-                            //TODO (3) -> Update text with fetched "lat" and "lon"
-                            text = location?.let { "lat: ${it.latitude}, lon: ${it.longitude}" } ?: "Getting location...",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = TextSecondary,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-
-                    Spacer(Modifier.height(24.dp))
-
-                    Box(
-                        modifier = Modifier.height(96.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        if (isLoading) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(64.dp),
-                                strokeWidth = 6.dp,
-                                color = Accent
-                            )
-                        } else {
-                            Text(
-                                text = weatherText,
-                                fontSize = 72.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = TextPrimary
-                            )
-                        }
-                    }
-
-                    errorText?.let {
-                        Spacer(Modifier.height(8.dp))
-                        Text(
-                            text = it,
-                            color = ErrorColor,
-                            style = MaterialTheme.typography.bodySmall,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-
-                    Spacer(Modifier.height(24.dp))
-
-                    //TODO (4) -> Change "enabled = true" to "enabled = canFetch"
-                    Button(
-                        enabled = canFetch,
-                        shape = RoundedCornerShape(16.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Accent,
-                            contentColor = Color.White,
-                            disabledContainerColor = AccentDisabled,
-                            disabledContentColor = Color.White
-                        ),
-                        elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(52.dp),
-                        onClick = {
-                            val loc = location ?: return@Button
-                            isLoading = true
-                            errorText = null
-                            coroutineScope.launch {
-                                try {
-                                    weatherText = "${getWeather(loc.latitude,loc.longitude)}°C"
-                                } catch (e: Exception) {
-                                    errorText = "Couldn't load temperature: ${e.message ?: e.toString()}"
-                                } finally {
-                                    isLoading = false
-                                }
+                            .padding(horizontal = 24.dp, vertical = 32.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            //TODO (2) -> Uncomment after requesting the "location"
+                            if (location == null) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(16.dp),
+                                    strokeWidth = 2.dp,
+                                    color = Accent
+                                )
+                                Spacer(Modifier.size(8.dp))
+                            }
+                            Text(
+                                //TODO (3) -> Update text with fetched "lat" and "lon"
+                                text = location?.let { "lat: ${it.latitude}, lon: ${it.longitude}" } ?: "Getting location...",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = TextSecondary,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+
+                        Spacer(Modifier.height(24.dp))
+
+                        Box(
+                            modifier = Modifier.height(96.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            if (isLoading) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(64.dp),
+                                    strokeWidth = 6.dp,
+                                    color = Accent
+                                )
+                            } else {
+                                Text(
+                                    text = weatherText,
+                                    fontSize = 72.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = TextPrimary
+                                )
                             }
                         }
-                    ) {
-                        Text(
-                            text = if (isLoading) "Loading..." else "Get Temperature",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
+
+                        errorText?.let {
+                            Spacer(Modifier.height(8.dp))
+                            Text(
+                                text = it,
+                                color = ErrorColor,
+                                style = MaterialTheme.typography.bodySmall,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+
+                        Spacer(Modifier.height(24.dp))
+
+                        //TODO (4) -> Change "enabled = true" to "enabled = canFetch"
+                        when(theme){
+                            Theme.Cupertino -> AdaptiveButton(
+                                enabled = canFetch,
+
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(52.dp),
+                                onClick = {
+                                    val loc = location ?: return@AdaptiveButton
+                                    isLoading = true
+                                    errorText = null
+                                    coroutineScope.launch {
+                                        try {
+                                            weatherText = "${getWeather(loc.latitude,loc.longitude)}°C"
+                                        } catch (e: Exception) {
+                                            errorText = "Couldn't load temperature: ${e.message ?: e.toString()}"
+                                        } finally {
+                                            isLoading = false
+                                        }
+                                    }
+                                }
+                            ) {
+                                Text(
+                                    text = if (isLoading) "Loading..." else "Get Temperature",
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+
+                            Theme.Material3 -> Button(
+                                enabled = canFetch,
+                                shape = RoundedCornerShape(16.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Accent,
+                                    contentColor = Color.White,
+                                    disabledContainerColor = AccentDisabled,
+                                    disabledContentColor = Color.White
+                                ),
+                                elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(52.dp),
+                                onClick = {
+                                    val loc = location ?: return@Button
+                                    isLoading = true
+                                    errorText = null
+                                    coroutineScope.launch {
+                                        try {
+                                            weatherText = "${getWeather(loc.latitude,loc.longitude)}°C"
+                                        } catch (e: Exception) {
+                                            errorText = "Couldn't load temperature: ${e.message ?: e.toString()}"
+                                        } finally {
+                                            isLoading = false
+                                        }
+                                    }
+                                }
+                            ) {
+                                Text(
+                                    text = if (isLoading) "Loading..." else "Get Temperature",
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+
                     }
                 }
             }
