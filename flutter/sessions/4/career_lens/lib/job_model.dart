@@ -13,12 +13,12 @@ class JobModel {
     var response = await post(
       uri,
       headers: {
-        "x-goog-api-key": const String.fromEnvironment("GEMINI_API_KEY"),
+        "x-goog-api-key": "gemeni-api-key-here",
         "Content-Type": "application/json",
         "Api-Revision": "2026-05-20",
       },
       body: jsonEncode({
-        "model": "gemini-4-hydrogen",
+        "model": "gemini-3.8-flash",
         "input": "You are an experienced technical recruiter and career analyst.\n\nAnalyze the following job position: $role\n\nIdentify the skills and qualifications a candidate should have to be considered a strong applicant for this position.\n\nOrganize the response into these categories:\n\n1. Technical Skills: Programming languages, frameworks, libraries, tools, technologies, and technical concepts.\n2. Fundamental Knowledge: Essential theoretical and practical knowledge.\n3. Soft Skills: Communication, teamwork, problem-solving, and other relevant interpersonal skills.\n4. Experience & Qualifications: Expected experience level, education, certifications, and relevant qualifications.\n\nFor each requirement, provide a name, a brief explanation, and classify its importance as Required, Preferred, or Bonus.\n\nTailor everything to the exact job title and seniority level. Focus on realistic industry expectations. Avoid generic or irrelevant requirements.\n\nReturn valid Markdown formatting for the text.",
       }),
     );
